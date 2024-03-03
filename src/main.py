@@ -1,20 +1,15 @@
-from db import BaseModel, engine
-from logs import DatabaseHandler
 import logging
+import logging.config
 
+from database import BaseModel, engine
+from models import *  # noqa: F403
+from settings import get_settings
 
+settings = get_settings()
 BaseModel.metadata.create_all(bind=engine)
 
 
-logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    datefmt='%d-%b-%y %H:%M:%S',
-    level=logging.DEBUG
-)
+logging.config.dictConfig(settings.logging)
+logger = logging.getLogger("logger_name")
 
-logger = logging.getLogger("general")
-handler = DatabaseHandler()
-logger.addHandler(handler)
-
-logger.info("log something")
-
+logger.info("dummy log")

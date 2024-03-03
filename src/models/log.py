@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime
 
-from db import BaseModel
+from database import BaseModel
 import datetime as dt
 
 
@@ -9,5 +9,6 @@ class Log(BaseModel):
 
     id = Column(Integer, primary_key=True, index=True)
     time = Column(DateTime, nullable=False, default=dt.datetime.now)
+    name = Column(Text, nullable=False)
     priority = Column(String(20), nullable=True)
     message = Column(Text, index=True)
